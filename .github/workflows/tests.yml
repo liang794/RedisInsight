@@ -103,7 +103,7 @@ jobs:
     secrets: inherit
     with:
       short_rte_list: ${{ inputs.short_rte_list || true }}
-      redis_client: ${{ inputs.redis_client || '' }}
+      redis_client: ${{ inputs.redis_client || 'ioredis' }}
       debug: ${{ inputs.debug || false }}
 
   # # E2E Approve
