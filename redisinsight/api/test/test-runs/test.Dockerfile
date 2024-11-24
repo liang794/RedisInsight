@@ -5,7 +5,8 @@ RUN dbus-uuidgen > /var/lib/dbus/machine-id
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock stubs ./
+COPY package.json yarn.lock ./
+COPY stubs ./stubs
 RUN yarn install
 COPY . .
 
