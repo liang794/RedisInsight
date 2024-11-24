@@ -116,7 +116,7 @@ jobs:
 
     - name: Run tests
       run: |
-        if [ ${{ inputs.redis_client }} == "node-redis" ]; then
+        if [ "${{ inputs.redis_client }}" == "node-redis" ]; then
           export RI_REDIS_CLIENTS_FORCE_STRATEGY=${{ inputs.redis_client }}
         fi
 

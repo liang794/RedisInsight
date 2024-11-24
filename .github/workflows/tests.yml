@@ -46,6 +46,10 @@ on:
         description: Use short rte list
         type: boolean
         default: true
+      redis_client:
+        description: Library to use for redis connection
+        type: string
+        default: 'ioredis'
       pre_release:
         description: Is pre-release
         default: false
