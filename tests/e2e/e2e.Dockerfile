@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 RUN apk add --no-cache bash curl
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock stubs ./
 
 RUN npx yarn
 
