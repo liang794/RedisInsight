@@ -36,7 +36,8 @@ services:
 
         # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEs/ewkUXl0+uDr7hxSM2vURqdRNFHm7+x05azzW/Yzu"
     volumes:
-      - ${E2E_VOLUME_PATH:-.}/rte/ssh/keys:/keys
+      # - ${E2E_VOLUME_PATH:-.}/rte/ssh/keys:/keys
+      - ./rte/ssh/keys:/keys
     ports:
       - 2222:2222
     networks:

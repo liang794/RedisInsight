@@ -80,7 +80,7 @@ jobs:
     # SSH Debug
     - name: Enable SSH
       uses: mxschmitt/action-tmate@v3
-      if: inputs.debug
+      # if: inputs.debug
       with:
         detached: true
 
@@ -122,11 +122,13 @@ jobs:
         TEST_BIG_DB_DUMP=$TEST_BIG_DB_DUMP \
         RI_SERVER_TLS_CERT="$RI_SERVER_TLS_CERT" \
         RI_SERVER_TLS_KEY="$RI_SERVER_TLS_KEY" \
-        E2E_VOLUME_PATH="$E2E_VOLUME_PATH" \
-        docker compose \
-        -f tests/e2e/rte.docker-compose.yml \
-        -f tests/e2e/docker.web.docker-compose.yml \
-        up --abort-on-container-exit --force-recreate
+        docker compose -f tests/e2e/rte.docker-compose.yml build
+        docker compose -f tests/e2e/rte.docker-compose.yml up --force-recreate -d -V
+
+        # docker compose \
+        # -f tests/e2e/rte.docker-compose.yml \
+        # -f tests/e2e/docker.web.docker-compose.yml \
+        # up --abort-on-container-exit --force-recreate
 
     - name: Upload Test Report
       uses: actions/upload-artifact@v4
