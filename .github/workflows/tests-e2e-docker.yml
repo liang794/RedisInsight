@@ -40,6 +40,7 @@ jobs:
       volumes:
         - /usr/src/app/results:/usr/src/app/results
         - /usr/src/app/report:/usr/src/app/report
+        - /usr/src/app/rte:/usr/src/app/rte
 
     strategy:
       fail-fast: false

@@ -30,13 +30,13 @@ services:
       - USER_PASSWORD=pass
       - USER_NAME=u
       - DOCKER_MODS=linuxserver/mods:openssh-server-ssh-tunnel
-      - PUBLIC_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEs/ewkUXl0+uDr7hxSM2vURqdRNFHm7+x05azzW/Yzu"
+      - PUBLIC_KEY_DIR=/keys/pub
+      # - PUBLIC_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEs/ewkUXl0+uDr7hxSM2vURqdRNFHm7+x05azzW/Yzu"
       # - PUBLIC_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPXS0xkxY7o+MUNBJJnf6fKh6AFFpzB0YIfifHSSseXw"
 
         # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEs/ewkUXl0+uDr7hxSM2vURqdRNFHm7+x05azzW/Yzu"
-      # - PUBLIC_KEY_DIR=/keys/pub
     volumes:
-      - ./rte/ssh/keys:/keys
+      - ${E2E_VOLUME_PATH:-.}/rte/ssh/keys:/keys
     ports:
       - 2222:2222
     networks:
@@ -278,14 +278,14 @@ services:
         ipv4_address: 172.31.100.196
 
   # redis enterprise
-  redis-enterprise:
-    logging: *logging
-    build: ./rte/redis-enterprise
-    cap_add:
-      - sys_resource
-    ports:
-      - 19443:9443
-      - 12000:12000
+  # redis-enterprise:
+  #   logging: *logging
+  #   build: ./rte/redis-enterprise
+  #   cap_add:
+  #     - sys_resource
+  #   ports:
+  #     - 19443:9443
+  #     - 12000:12000
 networks:
   default:
     name: "e2e-private-network"
