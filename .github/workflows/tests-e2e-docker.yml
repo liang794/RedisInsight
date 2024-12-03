@@ -122,6 +122,7 @@ jobs:
         TEST_BIG_DB_DUMP=$TEST_BIG_DB_DUMP \
         RI_SERVER_TLS_CERT="$RI_SERVER_TLS_CERT" \
         RI_SERVER_TLS_KEY="$RI_SERVER_TLS_KEY" \
+        E2E_VOLUME_PATH="$E2E_VOLUME_PATH" \
         docker compose \
         -f tests/e2e/rte.docker-compose.yml \
         -f tests/e2e/docker.web.docker-compose.yml \
