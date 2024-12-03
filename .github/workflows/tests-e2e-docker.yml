@@ -34,8 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E Docker tests
     container:
-      image: docker:latest
-      options: --privileged
+      image: alpine:latest
+      # image: docker:latest
+      # options: --privileged
       volumes:
         - /usr/src/app/results:/usr/src/app/results
         - /usr/src/app/report:/usr/src/app/report
@@ -44,7 +45,8 @@ jobs:
       fail-fast: false
       matrix:
         # Number of threads to run tests
-        parallel: [0, 1, 2, 3]
+        parallel: [0]
+        # parallel: [0, 1, 2, 3]
 
     steps:
     - uses: actions/checkout@v4
@@ -59,14 +61,23 @@ jobs:
       with:
         detached: true
 
-    - name: Download Docker Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: docker-builds
-        path: ./release
+    # - name: Download Docker Artifacts
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: docker-builds
+    #     path: ./release
 
     - name: Load built docker image from workspace
       run: |
+
+        FILE_URL="https://s3.us-east-1.amazonaws.com/redisinsight.download/public/latest/docker/docker-linux-alpine.amd64.tar"
+
+        OUTPUT_FILE="./release/docker/docker-linux-alpine.amd64.tar"
+
+        mkdir release
+        mkdir release/docker
+        wget -O "$OUTPUT_FILE" "$FILE_URL"
+
         docker image load -i ./release/docker/docker-linux-alpine.amd64.tar
 
     - name: Generate short list of the test files

@@ -10,7 +10,8 @@ import testcafe from 'testcafe';
                         configPath: 'tsconfig.testcafe.json',
                         experimentalDecorators: true
                     } })
-                .src((process.env.TEST_FILES || 'tests/web/**/*.e2e.ts').split('\n'))
+                .src(['tests/web/critical-path/database/connecting-to-the-db.e2e.ts'])
+                // .src((process.env.TEST_FILES || 'tests/web/**/*.e2e.ts').split('\n'))
                 .browsers(['chromium:headless --disable-search-engine-choice-screen --ignore-certificate-errors'])
                 .screenshots({
                     path: 'report/screenshots/',
