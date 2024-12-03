@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E Docker tests
     container:
-      image: alpine:latest
+      image: ubuntu:latest
       # image: docker:latest
       # options: --privileged
       volumes:
@@ -50,6 +50,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install deps
+      run: |
+        apt-get update && \
+        apt-get install -y --no-install-recommends docker.io && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
 
     # - name: Setup repository
     #   run: git config --global --add safe.directory /__w/RedisInsight/RedisInsight
