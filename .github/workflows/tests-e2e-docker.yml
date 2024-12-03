@@ -54,7 +54,7 @@ jobs:
     - name: Install deps
       run: |
         apt-get update && \
-        apt-get install -y --no-install-recommends docker.io && \
+        apt-get install -y --no-install-recommends wget docker.io && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
