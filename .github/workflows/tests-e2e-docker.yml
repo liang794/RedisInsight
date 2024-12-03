@@ -83,7 +83,7 @@ jobs:
 
         mkdir release
         mkdir release/docker
-        wget -O "$OUTPUT_FILE" "$FILE_URL"
+        wget -O "$OUTPUT_FILE" "$FILE_URL" --no-check-certificate
 
         docker image load -i ./release/docker/docker-linux-alpine.amd64.tar
 
