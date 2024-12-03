@@ -51,8 +51,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup repository
-      run: git config --global --add safe.directory /__w/RedisInsight/RedisInsight
+    # - name: Setup repository
+    #   run: git config --global --add safe.directory /__w/RedisInsight/RedisInsight
 
     # SSH Debug
     - name: Enable SSH
