@@ -125,15 +125,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-  # E2E Docker
-  build-docker:
-    uses: ./.github/workflows/pipeline-build-docker.yml
-    needs: e2e-approve
-    secrets: inherit
-    with:
-      debug: ${{ inputs.debug || false }}
-      for_e2e_tests: true
-
   e2e-docker-tests:
     needs: build-docker
     uses: ./.github/workflows/tests-e2e-docker.yml
