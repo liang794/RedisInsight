@@ -35,10 +35,10 @@ jobs:
     name: E2E Docker tests
     strategy:
       fail-fast: false
-      matrix:
+      # matrix:
         # Number of threads to run tests
         # parallel: [0, 1, 2, 3]
-        parallel: [0]
+        # parallel: [0]
 
     steps:
     - uses: actions/checkout@v4
@@ -75,7 +75,7 @@ jobs:
 
     - name: Run tests
       run: |
-        export NODE_INDEX=${{ matrix.parallel }}
+        # export NODE_INDEX=${{ matrix.parallel }}
 
         TEST_BIG_DB_DUMP=$TEST_BIG_DB_DUMP \
         RI_SERVER_TLS_CERT="$RI_SERVER_TLS_CERT" \
@@ -89,7 +89,8 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: report-docker-node-${{ matrix.parallel }}
+        # name: report-docker-node-${{ matrix.parallel }}
+        name: report-docker-node
         path: /usr/src/app/report
 
     - name: Send report to Slack
@@ -97,17 +98,6 @@ jobs:
       run: |
         node ./.github/e2e-results.js
         curl -H "Content-type: application/json" --data @e2e.report.json -H "Authorization: Bearer $SLACK_TEST_REPORT_KEY" -X POST https://slack.com/api/chat.postMessage
-
-    - name: Generate test results for ${{ matrix.parallel }}th node
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        name: 'Test results: E2E (docker) ${{ matrix.parallel }}th node'
-        path: /usr/src/app/results/results.xml
-        reporter: java-junit
-        list-tests: 'failed'
-        list-suites: 'failed'
-        fail-on-error: 'false'
 
     - name: Deploy report
       if: always()
@@ -124,7 +114,7 @@ jobs:
       if: always()
       run: |
         DATE=$(date +'%Y-%m-%d')
-        link="${{ vars.DEFAULT_TEST_REPORTS_URL }}/${DATE}/${{ github.run_id }}/${{ env.REPORT_NAME }}-${{ matrix.parallel }}/index.html"
+        link="${{ vars.DEFAULT_TEST_REPORTS_URL }}/${DATE}/${{ github.run_id }}/${{ env.REPORT_NAME }}/index.html"
 
         echo "- [${link}](${link})" >> $GITHUB_STEP_SUMMARY
 
